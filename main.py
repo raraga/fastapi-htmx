@@ -5,11 +5,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
-from database import engine, get_db, Base
-from models.todo import (
-    TodoCreate,
-    TodoUpdate,
-    TodoResponse,
+from database.setup import engine, get_db, Base
+from src.models.todo import TodoCreate, TodoUpdate, TodoResponse
+from src.controllers.TodoController import (
     create_todo,
     get_todo,
     get_todos,
@@ -21,7 +19,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), "static")
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="src/views")
 
 
 @app.get("/", response_class=HTMLResponse)
