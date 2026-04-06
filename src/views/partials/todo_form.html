@@ -1,0 +1,8 @@
+<form hx-post="/todos/form" 
+      hx-swap="none"
+      hx-on::after-request="if(event.detail.successful) { this.reset(); htmx.ajax('GET', '/todos/view', '#todo-list') }">
+    <div class="form-row">
+        <input type="text" name="text" placeholder="Enter a new todo..." required>
+        <button type="submit">Add Todo</button>
+    </div>
+</form>

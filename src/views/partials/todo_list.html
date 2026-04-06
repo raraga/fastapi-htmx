@@ -1,0 +1,18 @@
+<div id="todo-list">
+    {% for todo in todos %}
+    <div class="todo-item" data-id="{{ todo.id }}">
+        <input type="checkbox" 
+               {% if todo.done %}checked{% endif %}
+               hx-post="/todos/{{ todo.id }}/toggle"
+               hx-swap="none"
+               hx-on::after-request="htmx.ajax('GET', '/todos/view', '#todo-list')"
+               aria-label="Toggle todo">
+        <span class="todo-text {% if todo.done %}done{% endif %}">{{ todo.text }}</span>
+        <span class="todo-status {% if todo.done %}status-done{% else %}status-pending{% endif %}">
+            {% if todo.done %}Done{% else %}Pending{% endif %}
+        </span>
+    </div>
+    {% else %}
+    <div class="empty-message">No todos yet. Add one below!</div>
+    {% endfor %}
+</div>

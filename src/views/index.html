@@ -2,9 +2,26 @@
 <html>
 <head>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
     <script src="/static/htmx.min.js"></script>
 </head>
 <body>
-<p>yooooooooooooooooo</p>
+    <h1>Todos</h1>
+    
+    <div class="todo-container">
+        <div id="todo-list" 
+             hx-get="/todos/view" 
+             hx-trigger="load, every 5s" 
+             hx-swap="innerHTML"
+             hx-sync="this:replace">
+            <div class="empty-message">Loading todos...</div>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="form-container">
+        {% include "partials/todo_form.html" %}
+    </div>
 </body>
 </html>
